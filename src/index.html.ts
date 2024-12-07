@@ -9,7 +9,7 @@ import {
   xy2expr,
   Range,
 } from '@wolf-table/table-renderer';
-import Table from '.';
+import { WolfTable } from '.';
 import { pt2px } from './helper';
 
 /**
@@ -17,7 +17,7 @@ import { pt2px } from './helper';
  * @param t Table
  * @param from the range reference, like A1:H22
  */
-export function toHtml(t: Table, from: string) {
+export function toHtml(t: WolfTable, from: string) {
   let htmlStr =
     '<table xmlns="http://www.w3.org/1999/xhtml" style="border-spacing: 0; border-collapse: collapse;">';
   const fromRange = Range.with(from);
@@ -33,9 +33,8 @@ export function toHtml(t: Table, from: string) {
     if (lineStyle === 'dashed' || lineStyle === 'dotted') {
       return `1px ${lineStyle} ${color}`;
     } else {
-      return `${
-        lineStyle === 'thick' ? 3 : lineStyle === 'medium' ? 2 : 1
-      }px solid ${color}`;
+      return `${lineStyle === 'thick' ? 3 : lineStyle === 'medium' ? 2 : 1
+        }px solid ${color}`;
     }
   };
   const cellIndexes = new Map();
@@ -136,7 +135,7 @@ export function toHtml(t: Table, from: string) {
  * @param to [row, col]
  */
 export function fromHtml(
-  t: Table,
+  t: WolfTable,
   html: string,
   [toStartRow, toStartCol]: [number, number]
 ): [number, number] {

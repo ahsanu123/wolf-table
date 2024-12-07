@@ -1,6 +1,6 @@
-import WolfTable, { h } from './src';
+import { WolfTable, createHtmlElement } from './src';
 
-const t = WolfTable.create(
+const table = WolfTable.create(
   '#table',
   () => 1400,
   () => 600,
@@ -36,12 +36,12 @@ const t = WolfTable.create(
     ],
   })
   .onClick((cell, evt) => {
-    // console.log('cell:', cell, evt);
+    console.log('cell:', cell, evt);
   })
   .onContextmenu((cell, evt) => {
     console.log('contetmenu:', cell);
     const { x, y, width, height } = cell;
-    const content = h('div')
+    const content = createHtmlElement('div')
       .css({ background: '#ddd', padding: '10px', 'z-index': '100' })
       .css({
         left: x,
@@ -50,21 +50,21 @@ const t = WolfTable.create(
         height,
         position: 'absolute',
       });
-    content.html('---abc--');
-    t.container().append(content);
+    content.html('its context menu');
+    table.container().append(content);
   })
   .render();
 
 // add style
-const si = t.addStyle({
+const si = table.addStyle({
   bold: true,
   italic: true,
   underline: true,
   color: '#1b1c1d',
 });
 // set cell
-t.cell(2, 2, { value: 'set-value', style: si });
-t.cell(15, 7, {
+table.cell(2, 0, { value: 'set-value', style: si });
+table.cell(15, 7, {
   type: 'text',
   value: 'option',
   options: async (q) =>
@@ -72,7 +72,7 @@ t.cell(15, 7, {
       (it) => it.startsWith(q)
     ),
 });
-t.render();
+table.render();
 
 // get cell
-console.log('cell[2,2]:', t.cell(2, 2));
+console.log('cell[2,2]:', table.cell(2, 2));

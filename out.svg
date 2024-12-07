@@ -1,0 +1,781 @@
+<svg version="1.1" baseProfile="full" width="5709.0" height="1341.0" viewBox="0 0 5709 1341" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+<desc >#.interface: fill=lightblue
+#.enumeration: fill=lightgreen
+#.type: fill=lightgray
+[HElement|+_: HTMLElement;+_data: Map&lt;any, any&gt;|+element(): any;+data(): any;+on(): this;+focus(): this;+value(): any;+textContent(): this;+html(): this;+attr(): any;+css(): any;+rect(): DOMRect;+offset(): { x: number; y: number; width: number; height: number; };+computedStyle(): CSSStyleDeclaration;+show(): this;+hide(): this;+scrollx(): any;+scrolly(): any;+after(): this;+before(): this;+append(): this;+remove(): void;+cloneNode(): Node]
+[&lt;type&gt;CSSAttrs|+left?: number;+top?: number;+width?: number;+height?: number;+position?: string|]
+[EventEmitter|+_events: Map&lt;any, any&gt;|+on(): this;+off(): this;+emit(): this]
+[Table|+_rendererOptions: TableRendererOptions;+_copyable: boolean;+_editable: boolean;+_minRowHeight: number;+_minColWidth: number;+_width: () =&gt; number;+_height: () =&gt; number;+_contentRect: Rect;+_container: HElement;+_data: TableData;+_renderer: TableRenderer;+_cells: Cells;+_vScrollbar: Scrollbar;+_hScrollbar: Scrollbar;+_rowResizer: Resizer;+_colResizer: Resizer;+_editor: Editor;+_editors: Map&lt;any, any&gt;;+_selector: Selector;+_overlayer: Overlayer;+_canvas: HElement;+_emitter: EventEmitter|+contentRect(): Rect;+container(): HElement;+resize(): void;+freeze(): this;+isMerged(): boolean;+merge(): this;+unmerge(): this;+row(): any;+rowHeight(): any;+rowsHeight(): number;+isLastRow(): boolean;+col(): any;+colWidth(): any;+colsWidth(): number;+isLastCol(): boolean;+formulaParser(): this;+formatter(): this;+style(): Partial&lt;Style&gt;;+addStyle(): number;+clearStyles(): this;+addBorder(): this;+clearBorder(): this;+clearBorders(): this;+cell(): any;+cellValue(): DataCellValue;+cellValueString(): string;+render(): this;+data(): any;+copy(): this;+fill(): Table;+toHtml(): string;+toArrays(): DataCellValue\[\]\[\];+onClick(): this;+onContextmenu(): this;+addEditor(): this;+static create(): Table]
+[&lt;type&gt;TableRendererOptions|+style?: Partial&lt;Style&gt;;+headerStyle?: Partial&lt;Style&gt;;+rowHeader?: Partial&lt;RowHeader&gt;;+colHeader?: Partial&lt;ColHeader&gt;;+gridline?: Partial&lt;Gridline&gt;;+headerGridline?: Partial&lt;Gridline&gt;;+freeGridline?: Partial&lt;Gridline&gt;|]
+[&lt;type&gt;TableDataOptions|+rows?: number;+cols?: number;+rowHeight?: number;+colWidth?: number|]
+[&lt;type&gt;TableOptions|+minRowHeight?: number;+minColWidth?: number;+scrollable?: boolean;+resizable?: boolean;+selectable?: boolean;+editable?: boolean;+copyable?: boolean;+data?: TableDataOptions;+renderer?: TableRendererOptions|]
+[Cells|+_: IndexDataCell\[\];+_indexes: Map&lt;any, any&gt;;+_formulas: number\[\];+_formulaParser: FormulaParser;+_formatter: Formatter|+formulaParser(): this;+formatter(): this;+load(): void;+get(): IndexDataCell;+remove(): this;+set(): void;-resetIndexes(): void;-updateIndex(): void;-addFormula(): void;-resetFormulas(): void]
+[&lt;type&gt;CopyData|+range: Range;+cells: Cells;+data: TableData|]
+[&lt;type&gt;CopyCells|+range: Range;+cells: Cells;+data: TableData|]
+[&lt;type&gt;DataRows|+len: number|]
+[&lt;type&gt;DataCols|+len: number|]
+[&lt;type&gt;TableData|+rows: DataRows;+cols: DataCols;+rowHeight: number;+colWidth: number;+scroll: \[number, number, number, number\];+style: Style;+styles: Partial&lt;Style&gt;\[\];+borders: Border\[\];+merges: string\[\];+cells: IndexDataCell\[\];+freeze?: string|]
+[Editor|+_: HElement;+_target: HElement;+_rect: Rect;+_value: Cell;+_visible: boolean;+_moveChanger: MoveChanger;+_changer: Changer|+target(): this;+cellIndex(): this;+value(): this;+changed(): void;+rect(): this;+show(): this;+hide(): this;+moveChanger(): this;+changer(): this]
+[Overlayer|+_areas: HElement\[\];+_headerAreas: HElement\[\];+_areaRects: Rect\[\]|+area(): any;+headerArea(): any;+inAreas(): boolean]
+[Resizer|+_: HElement;+_hover: HElement;+_line: HElement;+_type: ResizerType;+_minValue: number;+_lineLength: () =&gt; number;+_cell: AreaCell;+_change: (value: number, cell: AreaCell) =&gt; void|+show(): void;+hide(): void]
+[Scrollbar|+_: HElement;+_content: HElement;+_value: number;+_maxValue: number;+_lastOffset: number;+_type: &quot;vertical&quot; \| &quot;horizontal&quot;;+_change: (direction: &quot;+&quot; \| &quot;-&quot;, value: number, event: Event) =&gt; void|+change(): this;+scrollBy(): Scrollbar;+scrollToStart(): this;+scrollToEnd(): this;+scroll(): any;+resize(): this]
+[SelectArea|+_: HElement;+_rect: Rect;+_target: HElement|+append(): this;+offset(): { x: number; y: number; width: number; height: number; };+rect(): this;+target(): this;+show(): this;+clear(): void]
+[Selector|+_placement: Placement;+_editable: boolean;+_ranges: Range\[\];+_rowHeaderRanges: Range\[\];+_colHeaderRanges: Range\[\];+_areas: SelectArea\[\];+_focus: \[number, number\];+_focusRange: Range;+_focusArea: SelectArea;+_move: \[number, number\];+_copyRange: Range;+_copyAreas: SelectArea\[\];+_autofillRange: Range;+_autofillAreas: SelectArea\[\];+_autofillTrigger: (evt: any) =&gt; void|+placement(): this;+focus(): this;+move(): this;+autofillRange(): this;+autofillTrigger(): this;+addRange(): this;+updateLastRange(): void;+addAreaOutline(): void;+addArea(): this;+addRowHeaderArea(): this;+addColHeaderArea(): this;+addCopyArea(): this;+addAutofillArea(): this;+setFocusArea(): this;+showCopy(): void;+clearCopy(): void;+clear(): void]
+[SelectEditor|+_searchInput: HElement;+_content: HElement;+_width: number;+_height: number;+_position: Position;+_options: OptionsFunc|+query(): Promise&lt;void&gt;;+options(): this;+position(): this;+rect(): this;+show(): this]
+[Editor]&lt;:-[SelectEditor]
+[TextEditor|+_text: HElement;+_textMeasure: HElement;+_editing: boolean|+value(): this;+rect(): this;+hide(): this]
+[Editor]&lt;:-[TextEditor]</desc>
+<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="normal" font-style="normal">
+<g font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#33322E">
+<g stroke="transparent" fill="transparent">
+<rect x="0.0" y="0.0" height="1341.0" width="5709.0" stroke="none"></rect>
+</g>
+<g transform="translate(8, 8)" fill="#33322E">
+<g transform="translate(20, 20)" fill="#eee8d5" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+<path d="M3615.8 675.9 L3530 1023 L3530 1043 L3530.0 1043.0 " fill="none"></path>
+<path d="M3621.0 677.2 L3615.8 675.9 L3610.7 674.7 L3619.1 663.0 Z"></path>
+<path d="M3702.2 675.9 L3788 1023 L3788 1083 L3788.0 1083.0 " fill="none"></path>
+<path d="M3707.3 674.7 L3702.2 675.9 L3697.0 677.2 L3698.9 663.0 Z"></path>
+<g data-name="HElement">
+<g fill="#eee8d5" stroke="#33322E" data-name="HElement">
+<rect x="0.0" y="251.0" height="501.0" width="328.0" data-name="HElement"></rect>
+<path d="M0.0 283.0 L328.0 283.0" fill="none" data-name="HElement"></path>
+<path d="M0.0 331.0 L328.0 331.0" fill="none" data-name="HElement"></path>
+</g>
+<g transform="translate(0, 251)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="HElement">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="HElement">
+<a id="src/element.ts.HElement" xlink:href="src/element.ts"><text x="156.0" y="14.1" stroke="none" text-anchor="middle" data-name="HElement">HElement</text></a>
+
+</g>
+</g>
+<g transform="translate(0, 283)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HElement">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HElement">
+<text x="0.0" y="14.1" stroke="none" data-name="HElement">+_: HTMLElement</text>
+<text x="0.0" y="30.3" stroke="none" data-name="HElement">+_data: Map&lt;any, any&gt;</text>
+
+</g>
+</g>
+<g transform="translate(0, 331)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="HElement">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="HElement">
+<text x="0.0" y="14.1" stroke="none" data-name="HElement">+element(): any</text>
+<text x="0.0" y="30.3" stroke="none" data-name="HElement">+data(): any</text>
+<text x="0.0" y="46.5" stroke="none" data-name="HElement">+on(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="HElement">+focus(): this</text>
+<text x="0.0" y="78.9" stroke="none" data-name="HElement">+value(): any</text>
+<text x="0.0" y="95.1" stroke="none" data-name="HElement">+textContent(): this</text>
+<text x="0.0" y="111.3" stroke="none" data-name="HElement">+html(): this</text>
+<text x="0.0" y="127.5" stroke="none" data-name="HElement">+attr(): any</text>
+<text x="0.0" y="143.7" stroke="none" data-name="HElement">+css(): any</text>
+<text x="0.0" y="159.9" stroke="none" data-name="HElement">+rect(): DOMRect</text>
+<text x="0.0" y="176.1" stroke="none" data-name="HElement">+offset(): { x: number</text>
+<text x="0.0" y="192.3" stroke="none" data-name="HElement">y: number</text>
+<text x="0.0" y="208.5" stroke="none" data-name="HElement">width: number</text>
+<text x="0.0" y="224.7" stroke="none" data-name="HElement">height: number</text>
+<text x="0.0" y="240.9" stroke="none" data-name="HElement">}</text>
+<text x="0.0" y="257.1" stroke="none" data-name="HElement">+computedStyle(): CSSStyleDeclaration</text>
+<text x="0.0" y="273.3" stroke="none" data-name="HElement">+show(): this</text>
+<text x="0.0" y="289.5" stroke="none" data-name="HElement">+hide(): this</text>
+<text x="0.0" y="305.7" stroke="none" data-name="HElement">+scrollx(): any</text>
+<text x="0.0" y="321.9" stroke="none" data-name="HElement">+scrolly(): any</text>
+<text x="0.0" y="338.1" stroke="none" data-name="HElement">+after(): this</text>
+<text x="0.0" y="354.3" stroke="none" data-name="HElement">+before(): this</text>
+<text x="0.0" y="370.5" stroke="none" data-name="HElement">+append(): this</text>
+<text x="0.0" y="386.7" stroke="none" data-name="HElement">+remove(): void</text>
+<text x="0.0" y="402.9" stroke="none" data-name="HElement">+cloneNode(): Node</text>
+
+</g>
+</g>
+</g>
+<g data-name="CSSAttrs">
+<g fill="lightgray" stroke="#33322E" data-name="CSSAttrs">
+<rect x="368.0" y="433.0" height="137.0" width="155.0" data-name="CSSAttrs"></rect>
+<path d="M368.0 465.0 L523.0 465.0" fill="none" data-name="CSSAttrs"></path>
+<path d="M368.0 562.0 L523.0 562.0" fill="none" data-name="CSSAttrs"></path>
+</g>
+<g transform="translate(368, 433)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CSSAttrs">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="CSSAttrs">
+<a id="src/element.ts.CSSAttrs" xlink:href="src/element.ts"><text x="69.5" y="14.1" stroke="none" text-anchor="middle" data-name="CSSAttrs">CSSAttrs</text></a>
+
+</g>
+</g>
+<g transform="translate(368, 465)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CSSAttrs">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="CSSAttrs">
+<text x="0.0" y="14.1" stroke="none" data-name="CSSAttrs">+left?: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="CSSAttrs">+top?: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="CSSAttrs">+width?: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="CSSAttrs">+height?: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="CSSAttrs">+position?: string</text>
+
+</g>
+</g>
+<g transform="translate(368, 562)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CSSAttrs">
+<g transform="translate(8, 8)" fill="#33322E" data-name="CSSAttrs">
+
+</g>
+</g>
+</g>
+<g data-name="EventEmitter">
+<g fill="#eee8d5" stroke="#33322E" data-name="EventEmitter">
+<rect x="563.0" y="437.0" height="129.0" width="221.0" data-name="EventEmitter"></rect>
+<path d="M563.0 469.0 L784.0 469.0" fill="none" data-name="EventEmitter"></path>
+<path d="M563.0 501.0 L784.0 501.0" fill="none" data-name="EventEmitter"></path>
+</g>
+<g transform="translate(563, 437)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="EventEmitter">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="EventEmitter">
+<a id="src/event.ts.EventEmitter" xlink:href="src/event.ts"><text x="102.5" y="14.1" stroke="none" text-anchor="middle" data-name="EventEmitter">EventEmitter</text></a>
+
+</g>
+</g>
+<g transform="translate(563, 469)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="EventEmitter">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="EventEmitter">
+<text x="0.0" y="14.1" stroke="none" data-name="EventEmitter">+_events: Map&lt;any, any&gt;</text>
+
+</g>
+</g>
+<g transform="translate(563, 501)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="EventEmitter">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="EventEmitter">
+<text x="0.0" y="14.1" stroke="none" data-name="EventEmitter">+on(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="EventEmitter">+off(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="EventEmitter">+emit(): this</text>
+
+</g>
+</g>
+</g>
+<g data-name="Table">
+<g fill="#eee8d5" stroke="#33322E" data-name="Table">
+<rect x="824.0" y="0.0" height="1003.0" width="354.0" data-name="Table"></rect>
+<path d="M824.0 32.0 L1178.0 32.0" fill="none" data-name="Table"></path>
+<path d="M824.0 404.0 L1178.0 404.0" fill="none" data-name="Table"></path>
+</g>
+<g transform="translate(824, 0)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Table">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Table">
+<a id="src/index.ts.Table" xlink:href="src/index.ts"><text x="169.0" y="14.1" stroke="none" text-anchor="middle" data-name="Table">Table</text></a>
+
+</g>
+</g>
+<g transform="translate(824, 32)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Table">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Table">
+<text x="0.0" y="14.1" stroke="none" data-name="Table">+_rendererOptions: TableRendererOptions</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Table">+_copyable: boolean</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Table">+_editable: boolean</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Table">+_minRowHeight: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Table">+_minColWidth: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Table">+_width: () =&gt; number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Table">+_height: () =&gt; number</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Table">+_contentRect: Rect</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Table">+_container: HElement</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Table">+_data: TableData</text>
+<text x="0.0" y="176.1" stroke="none" data-name="Table">+_renderer: TableRenderer</text>
+<text x="0.0" y="192.3" stroke="none" data-name="Table">+_cells: Cells</text>
+<text x="0.0" y="208.5" stroke="none" data-name="Table">+_vScrollbar: Scrollbar</text>
+<text x="0.0" y="224.7" stroke="none" data-name="Table">+_hScrollbar: Scrollbar</text>
+<text x="0.0" y="240.9" stroke="none" data-name="Table">+_rowResizer: Resizer</text>
+<text x="0.0" y="257.1" stroke="none" data-name="Table">+_colResizer: Resizer</text>
+<text x="0.0" y="273.3" stroke="none" data-name="Table">+_editor: Editor</text>
+<text x="0.0" y="289.5" stroke="none" data-name="Table">+_editors: Map&lt;any, any&gt;</text>
+<text x="0.0" y="305.7" stroke="none" data-name="Table">+_selector: Selector</text>
+<text x="0.0" y="321.9" stroke="none" data-name="Table">+_overlayer: Overlayer</text>
+<text x="0.0" y="338.1" stroke="none" data-name="Table">+_canvas: HElement</text>
+<text x="0.0" y="354.3" stroke="none" data-name="Table">+_emitter: EventEmitter</text>
+
+</g>
+</g>
+<g transform="translate(824, 404)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Table">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Table">
+<text x="0.0" y="14.1" stroke="none" data-name="Table">+contentRect(): Rect</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Table">+container(): HElement</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Table">+resize(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Table">+freeze(): this</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Table">+isMerged(): boolean</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Table">+merge(): this</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Table">+unmerge(): this</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Table">+row(): any</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Table">+rowHeight(): any</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Table">+rowsHeight(): number</text>
+<text x="0.0" y="176.1" stroke="none" data-name="Table">+isLastRow(): boolean</text>
+<text x="0.0" y="192.3" stroke="none" data-name="Table">+col(): any</text>
+<text x="0.0" y="208.5" stroke="none" data-name="Table">+colWidth(): any</text>
+<text x="0.0" y="224.7" stroke="none" data-name="Table">+colsWidth(): number</text>
+<text x="0.0" y="240.9" stroke="none" data-name="Table">+isLastCol(): boolean</text>
+<text x="0.0" y="257.1" stroke="none" data-name="Table">+formulaParser(): this</text>
+<text x="0.0" y="273.3" stroke="none" data-name="Table">+formatter(): this</text>
+<text x="0.0" y="289.5" stroke="none" data-name="Table">+style(): Partial&lt;Style&gt;</text>
+<text x="0.0" y="305.7" stroke="none" data-name="Table">+addStyle(): number</text>
+<text x="0.0" y="321.9" stroke="none" data-name="Table">+clearStyles(): this</text>
+<text x="0.0" y="338.1" stroke="none" data-name="Table">+addBorder(): this</text>
+<text x="0.0" y="354.3" stroke="none" data-name="Table">+clearBorder(): this</text>
+<text x="0.0" y="370.5" stroke="none" data-name="Table">+clearBorders(): this</text>
+<text x="0.0" y="386.7" stroke="none" data-name="Table">+cell(): any</text>
+<text x="0.0" y="402.9" stroke="none" data-name="Table">+cellValue(): DataCellValue</text>
+<text x="0.0" y="419.1" stroke="none" data-name="Table">+cellValueString(): string</text>
+<text x="0.0" y="435.3" stroke="none" data-name="Table">+render(): this</text>
+<text x="0.0" y="451.5" stroke="none" data-name="Table">+data(): any</text>
+<text x="0.0" y="467.7" stroke="none" data-name="Table">+copy(): this</text>
+<text x="0.0" y="483.9" stroke="none" data-name="Table">+fill(): Table</text>
+<text x="0.0" y="500.1" stroke="none" data-name="Table">+toHtml(): string</text>
+<text x="0.0" y="516.3" stroke="none" data-name="Table">+toArrays(): DataCellValue[][]</text>
+<text x="0.0" y="532.5" stroke="none" data-name="Table">+onClick(): this</text>
+<text x="0.0" y="548.7" stroke="none" data-name="Table">+onContextmenu(): this</text>
+<text x="0.0" y="564.9" stroke="none" data-name="Table">+addEditor(): this</text>
+<text x="0.0" y="581.1" stroke="none" data-name="Table">+static create(): Table</text>
+
+</g>
+</g>
+</g>
+<g data-name="TableRendererOptions">
+<g fill="lightgray" stroke="#33322E" data-name="TableRendererOptions">
+<rect x="1218.0" y="417.0" height="169.0" width="294.0" data-name="TableRendererOptions"></rect>
+<path d="M1218.0 449.0 L1512.0 449.0" fill="none" data-name="TableRendererOptions"></path>
+<path d="M1218.0 578.0 L1512.0 578.0" fill="none" data-name="TableRendererOptions"></path>
+</g>
+<g transform="translate(1218, 417)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableRendererOptions">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="TableRendererOptions">
+<a id="src/index.ts.TableRendererOptions" xlink:href="src/index.ts"><text x="139.0" y="14.1" stroke="none" text-anchor="middle" data-name="TableRendererOptions">TableRendererOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(1218, 449)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableRendererOptions">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TableRendererOptions">
+<text x="0.0" y="14.1" stroke="none" data-name="TableRendererOptions">+style?: Partial&lt;Style&gt;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TableRendererOptions">+headerStyle?: Partial&lt;Style&gt;</text>
+<text x="0.0" y="46.5" stroke="none" data-name="TableRendererOptions">+rowHeader?: Partial&lt;RowHeader&gt;</text>
+<text x="0.0" y="62.7" stroke="none" data-name="TableRendererOptions">+colHeader?: Partial&lt;ColHeader&gt;</text>
+<text x="0.0" y="78.9" stroke="none" data-name="TableRendererOptions">+gridline?: Partial&lt;Gridline&gt;</text>
+<text x="0.0" y="95.1" stroke="none" data-name="TableRendererOptions">+headerGridline?: Partial&lt;Gridline&gt;</text>
+<text x="0.0" y="111.3" stroke="none" data-name="TableRendererOptions">+freeGridline?: Partial&lt;Gridline&gt;</text>
+
+</g>
+</g>
+<g transform="translate(1218, 578)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableRendererOptions">
+<g transform="translate(8, 8)" fill="#33322E" data-name="TableRendererOptions">
+
+</g>
+</g>
+</g>
+<g data-name="TableDataOptions">
+<g fill="lightgray" stroke="#33322E" data-name="TableDataOptions">
+<rect x="1552.0" y="441.0" height="121.0" width="185.0" data-name="TableDataOptions"></rect>
+<path d="M1552.0 473.0 L1737.0 473.0" fill="none" data-name="TableDataOptions"></path>
+<path d="M1552.0 554.0 L1737.0 554.0" fill="none" data-name="TableDataOptions"></path>
+</g>
+<g transform="translate(1552, 441)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableDataOptions">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="TableDataOptions">
+<a id="src/index.ts.TableDataOptions" xlink:href="src/index.ts"><text x="84.5" y="14.1" stroke="none" text-anchor="middle" data-name="TableDataOptions">TableDataOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(1552, 473)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableDataOptions">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TableDataOptions">
+<text x="0.0" y="14.1" stroke="none" data-name="TableDataOptions">+rows?: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TableDataOptions">+cols?: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="TableDataOptions">+rowHeight?: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="TableDataOptions">+colWidth?: number</text>
+
+</g>
+</g>
+<g transform="translate(1552, 554)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableDataOptions">
+<g transform="translate(8, 8)" fill="#33322E" data-name="TableDataOptions">
+
+</g>
+</g>
+</g>
+<g data-name="TableOptions">
+<g fill="lightgray" stroke="#33322E" data-name="TableOptions">
+<rect x="1777.0" y="400.5" height="202.0" width="293.0" data-name="TableOptions"></rect>
+<path d="M1777.0 432.5 L2070.0 432.5" fill="none" data-name="TableOptions"></path>
+<path d="M1777.0 594.5 L2070.0 594.5" fill="none" data-name="TableOptions"></path>
+</g>
+<g transform="translate(1777, 400.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableOptions">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="TableOptions">
+<a id="src/index.ts.TableOptions" xlink:href="src/index.ts"><text x="138.5" y="14.1" stroke="none" text-anchor="middle" data-name="TableOptions">TableOptions</text></a>
+
+</g>
+</g>
+<g transform="translate(1777, 432.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableOptions">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TableOptions">
+<text x="0.0" y="14.1" stroke="none" data-name="TableOptions">+minRowHeight?: number</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TableOptions">+minColWidth?: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="TableOptions">+scrollable?: boolean</text>
+<text x="0.0" y="62.7" stroke="none" data-name="TableOptions">+resizable?: boolean</text>
+<text x="0.0" y="78.9" stroke="none" data-name="TableOptions">+selectable?: boolean</text>
+<text x="0.0" y="95.1" stroke="none" data-name="TableOptions">+editable?: boolean</text>
+<text x="0.0" y="111.3" stroke="none" data-name="TableOptions">+copyable?: boolean</text>
+<text x="0.0" y="127.5" stroke="none" data-name="TableOptions">+data?: TableDataOptions</text>
+<text x="0.0" y="143.7" stroke="none" data-name="TableOptions">+renderer?: TableRendererOptions</text>
+
+</g>
+</g>
+<g transform="translate(1777, 594.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableOptions">
+<g transform="translate(8, 8)" fill="#33322E" data-name="TableOptions">
+
+</g>
+</g>
+</g>
+<g data-name="Cells">
+<g fill="#eee8d5" stroke="#33322E" data-name="Cells">
+<rect x="2110.0" y="348.0" height="307.0" width="273.0" data-name="Cells"></rect>
+<path d="M2110.0 380.0 L2383.0 380.0" fill="none" data-name="Cells"></path>
+<path d="M2110.0 477.0 L2383.0 477.0" fill="none" data-name="Cells"></path>
+</g>
+<g transform="translate(2110, 348)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Cells">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Cells">
+<a id="src/data/cells.ts.Cells" xlink:href="src/data/cells.ts"><text x="128.5" y="14.1" stroke="none" text-anchor="middle" data-name="Cells">Cells</text></a>
+
+</g>
+</g>
+<g transform="translate(2110, 380)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Cells">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Cells">
+<text x="0.0" y="14.1" stroke="none" data-name="Cells">+_: IndexDataCell[]</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Cells">+_indexes: Map&lt;any, any&gt;</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Cells">+_formulas: number[]</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Cells">+_formulaParser: FormulaParser</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Cells">+_formatter: Formatter</text>
+
+</g>
+</g>
+<g transform="translate(2110, 477)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Cells">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Cells">
+<text x="0.0" y="14.1" stroke="none" data-name="Cells">+formulaParser(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Cells">+formatter(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Cells">+load(): void</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Cells">+get(): IndexDataCell</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Cells">+remove(): this</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Cells">+set(): void</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Cells">-resetIndexes(): void</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Cells">-updateIndex(): void</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Cells">-addFormula(): void</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Cells">-resetFormulas(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="CopyData">
+<g fill="lightgray" stroke="#33322E" data-name="CopyData">
+<rect x="2423.0" y="449.0" height="105.0" width="152.0" data-name="CopyData"></rect>
+<path d="M2423.0 481.0 L2575.0 481.0" fill="none" data-name="CopyData"></path>
+<path d="M2423.0 546.0 L2575.0 546.0" fill="none" data-name="CopyData"></path>
+</g>
+<g transform="translate(2423, 449)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CopyData">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="CopyData">
+<a id="src/data/copy.ts.CopyData" xlink:href="src/data/copy.ts"><text x="68.0" y="14.1" stroke="none" text-anchor="middle" data-name="CopyData">CopyData</text></a>
+
+</g>
+</g>
+<g transform="translate(2423, 481)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CopyData">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="CopyData">
+<text x="0.0" y="14.1" stroke="none" data-name="CopyData">+range: Range</text>
+<text x="0.0" y="30.3" stroke="none" data-name="CopyData">+cells: Cells</text>
+<text x="0.0" y="46.5" stroke="none" data-name="CopyData">+data: TableData</text>
+
+</g>
+</g>
+<g transform="translate(2423, 546)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CopyData">
+<g transform="translate(8, 8)" fill="#33322E" data-name="CopyData">
+
+</g>
+</g>
+</g>
+<g data-name="CopyCells">
+<g fill="lightgray" stroke="#33322E" data-name="CopyCells">
+<rect x="2615.0" y="449.0" height="105.0" width="152.0" data-name="CopyCells"></rect>
+<path d="M2615.0 481.0 L2767.0 481.0" fill="none" data-name="CopyCells"></path>
+<path d="M2615.0 546.0 L2767.0 546.0" fill="none" data-name="CopyCells"></path>
+</g>
+<g transform="translate(2615, 449)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CopyCells">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="CopyCells">
+<a id="src/data/copy.ts.CopyCells" xlink:href="src/data/copy.ts"><text x="68.0" y="14.1" stroke="none" text-anchor="middle" data-name="CopyCells">CopyCells</text></a>
+
+</g>
+</g>
+<g transform="translate(2615, 481)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CopyCells">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="CopyCells">
+<text x="0.0" y="14.1" stroke="none" data-name="CopyCells">+range: Range</text>
+<text x="0.0" y="30.3" stroke="none" data-name="CopyCells">+cells: Cells</text>
+<text x="0.0" y="46.5" stroke="none" data-name="CopyCells">+data: TableData</text>
+
+</g>
+</g>
+<g transform="translate(2615, 546)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="CopyCells">
+<g transform="translate(8, 8)" fill="#33322E" data-name="CopyCells">
+
+</g>
+</g>
+</g>
+<g data-name="DataRows">
+<g fill="lightgray" stroke="#33322E" data-name="DataRows">
+<rect x="2807.0" y="465.5" height="72.0" width="120.0" data-name="DataRows"></rect>
+<path d="M2807.0 497.5 L2927.0 497.5" fill="none" data-name="DataRows"></path>
+<path d="M2807.0 529.5 L2927.0 529.5" fill="none" data-name="DataRows"></path>
+</g>
+<g transform="translate(2807, 465.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DataRows">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="DataRows">
+<a id="src/data/index.ts.DataRows" xlink:href="src/data/index.ts"><text x="52.0" y="14.1" stroke="none" text-anchor="middle" data-name="DataRows">DataRows</text></a>
+
+</g>
+</g>
+<g transform="translate(2807, 497.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DataRows">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="DataRows">
+<text x="0.0" y="14.1" stroke="none" data-name="DataRows">+len: number</text>
+
+</g>
+</g>
+<g transform="translate(2807, 529.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DataRows">
+<g transform="translate(8, 8)" fill="#33322E" data-name="DataRows">
+
+</g>
+</g>
+</g>
+<g data-name="DataCols">
+<g fill="lightgray" stroke="#33322E" data-name="DataCols">
+<rect x="2967.0" y="465.5" height="72.0" width="120.0" data-name="DataCols"></rect>
+<path d="M2967.0 497.5 L3087.0 497.5" fill="none" data-name="DataCols"></path>
+<path d="M2967.0 529.5 L3087.0 529.5" fill="none" data-name="DataCols"></path>
+</g>
+<g transform="translate(2967, 465.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DataCols">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="DataCols">
+<a id="src/data/index.ts.DataCols" xlink:href="src/data/index.ts"><text x="52.0" y="14.1" stroke="none" text-anchor="middle" data-name="DataCols">DataCols</text></a>
+
+</g>
+</g>
+<g transform="translate(2967, 497.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DataCols">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="DataCols">
+<text x="0.0" y="14.1" stroke="none" data-name="DataCols">+len: number</text>
+
+</g>
+</g>
+<g transform="translate(2967, 529.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="DataCols">
+<g transform="translate(8, 8)" fill="#33322E" data-name="DataCols">
+
+</g>
+</g>
+</g>
+<g data-name="TableData">
+<g fill="lightgray" stroke="#33322E" data-name="TableData">
+<rect x="3127.0" y="384.5" height="234.0" width="358.0" data-name="TableData"></rect>
+<path d="M3127.0 416.5 L3485.0 416.5" fill="none" data-name="TableData"></path>
+<path d="M3127.0 610.5 L3485.0 610.5" fill="none" data-name="TableData"></path>
+</g>
+<g transform="translate(3127, 384.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableData">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="TableData">
+<a id="src/data/index.ts.TableData" xlink:href="src/data/index.ts"><text x="171.0" y="14.1" stroke="none" text-anchor="middle" data-name="TableData">TableData</text></a>
+
+</g>
+</g>
+<g transform="translate(3127, 416.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableData">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TableData">
+<text x="0.0" y="14.1" stroke="none" data-name="TableData">+rows: DataRows</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TableData">+cols: DataCols</text>
+<text x="0.0" y="46.5" stroke="none" data-name="TableData">+rowHeight: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="TableData">+colWidth: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="TableData">+scroll: [number, number, number, number]</text>
+<text x="0.0" y="95.1" stroke="none" data-name="TableData">+style: Style</text>
+<text x="0.0" y="111.3" stroke="none" data-name="TableData">+styles: Partial&lt;Style&gt;[]</text>
+<text x="0.0" y="127.5" stroke="none" data-name="TableData">+borders: Border[]</text>
+<text x="0.0" y="143.7" stroke="none" data-name="TableData">+merges: string[]</text>
+<text x="0.0" y="159.9" stroke="none" data-name="TableData">+cells: IndexDataCell[]</text>
+<text x="0.0" y="176.1" stroke="none" data-name="TableData">+freeze?: string</text>
+
+</g>
+</g>
+<g transform="translate(3127, 610.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TableData">
+<g transform="translate(8, 8)" fill="#33322E" data-name="TableData">
+
+</g>
+</g>
+</g>
+<g data-name="Editor">
+<g fill="#eee8d5" stroke="#33322E" data-name="Editor">
+<rect x="3525.0" y="340.0" height="323.0" width="268.0" data-name="Editor"></rect>
+<path d="M3525.0 372.0 L3793.0 372.0" fill="none" data-name="Editor"></path>
+<path d="M3525.0 501.0 L3793.0 501.0" fill="none" data-name="Editor"></path>
+</g>
+<g transform="translate(3525, 340)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Editor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Editor">
+<a id="src/editor/index.ts.Editor" xlink:href="src/editor/index.ts"><text x="126.0" y="14.1" stroke="none" text-anchor="middle" data-name="Editor">Editor</text></a>
+
+</g>
+</g>
+<g transform="translate(3525, 372)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Editor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Editor">
+<text x="0.0" y="14.1" stroke="none" data-name="Editor">+_: HElement</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Editor">+_target: HElement</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Editor">+_rect: Rect</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Editor">+_value: Cell</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Editor">+_visible: boolean</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Editor">+_moveChanger: MoveChanger</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Editor">+_changer: Changer</text>
+
+</g>
+</g>
+<g transform="translate(3525, 501)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Editor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Editor">
+<text x="0.0" y="14.1" stroke="none" data-name="Editor">+target(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Editor">+cellIndex(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Editor">+value(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Editor">+changed(): void</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Editor">+rect(): this</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Editor">+show(): this</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Editor">+hide(): this</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Editor">+moveChanger(): this</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Editor">+changer(): this</text>
+
+</g>
+</g>
+</g>
+<g data-name="Overlayer">
+<g fill="#eee8d5" stroke="#33322E" data-name="Overlayer">
+<rect x="3833.0" y="420.5" height="162.0" width="234.0" data-name="Overlayer"></rect>
+<path d="M3833.0 452.5 L4067.0 452.5" fill="none" data-name="Overlayer"></path>
+<path d="M3833.0 517.5 L4067.0 517.5" fill="none" data-name="Overlayer"></path>
+</g>
+<g transform="translate(3833, 420.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Overlayer">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Overlayer">
+<a id="src/overlayer/index.ts.Overlayer" xlink:href="src/overlayer/index.ts"><text x="109.0" y="14.1" stroke="none" text-anchor="middle" data-name="Overlayer">Overlayer</text></a>
+
+</g>
+</g>
+<g transform="translate(3833, 452.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Overlayer">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Overlayer">
+<text x="0.0" y="14.1" stroke="none" data-name="Overlayer">+_areas: HElement[]</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Overlayer">+_headerAreas: HElement[]</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Overlayer">+_areaRects: Rect[]</text>
+
+</g>
+</g>
+<g transform="translate(3833, 517.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Overlayer">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Overlayer">
+<text x="0.0" y="14.1" stroke="none" data-name="Overlayer">+area(): any</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Overlayer">+headerArea(): any</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Overlayer">+inAreas(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="Resizer">
+<g fill="#eee8d5" stroke="#33322E" data-name="Resizer">
+<rect x="4107.0" y="388.5" height="226.0" width="407.0" data-name="Resizer"></rect>
+<path d="M4107.0 420.5 L4514.0 420.5" fill="none" data-name="Resizer"></path>
+<path d="M4107.0 566.5 L4514.0 566.5" fill="none" data-name="Resizer"></path>
+</g>
+<g transform="translate(4107, 388.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Resizer">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Resizer">
+<a id="src/resizer/index.ts.Resizer" xlink:href="src/resizer/index.ts"><text x="195.5" y="14.1" stroke="none" text-anchor="middle" data-name="Resizer">Resizer</text></a>
+
+</g>
+</g>
+<g transform="translate(4107, 420.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Resizer">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Resizer">
+<text x="0.0" y="14.1" stroke="none" data-name="Resizer">+_: HElement</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Resizer">+_hover: HElement</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Resizer">+_line: HElement</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Resizer">+_type: ResizerType</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Resizer">+_minValue: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Resizer">+_lineLength: () =&gt; number</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Resizer">+_cell: AreaCell</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Resizer">+_change: (value: number, cell: AreaCell) =&gt; void</text>
+
+</g>
+</g>
+<g transform="translate(4107, 566.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Resizer">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Resizer">
+<text x="0.0" y="14.1" stroke="none" data-name="Resizer">+show(): void</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Resizer">+hide(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Scrollbar">
+<g fill="#eee8d5" stroke="#33322E" data-name="Scrollbar">
+<rect x="4554.0" y="364.5" height="274.0" width="545.0" data-name="Scrollbar"></rect>
+<path d="M4554.0 396.5 L5099.0 396.5" fill="none" data-name="Scrollbar"></path>
+<path d="M4554.0 525.5 L5099.0 525.5" fill="none" data-name="Scrollbar"></path>
+</g>
+<g transform="translate(4554, 364.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Scrollbar">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Scrollbar">
+<a id="src/scrollbar/index.ts.Scrollbar" xlink:href="src/scrollbar/index.ts"><text x="264.5" y="14.1" stroke="none" text-anchor="middle" data-name="Scrollbar">Scrollbar</text></a>
+
+</g>
+</g>
+<g transform="translate(4554, 396.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Scrollbar">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Scrollbar">
+<text x="0.0" y="14.1" stroke="none" data-name="Scrollbar">+_: HElement</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Scrollbar">+_content: HElement</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Scrollbar">+_value: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Scrollbar">+_maxValue: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Scrollbar">+_lastOffset: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Scrollbar">+_type: &quot;vertical&quot; | &quot;horizontal&quot;</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Scrollbar">+_change: (direction: &quot;+&quot; | &quot;-&quot;, value: number, event: Event) =&gt; void</text>
+
+</g>
+</g>
+<g transform="translate(4554, 525.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Scrollbar">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Scrollbar">
+<text x="0.0" y="14.1" stroke="none" data-name="Scrollbar">+change(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Scrollbar">+scrollBy(): Scrollbar</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Scrollbar">+scrollToStart(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Scrollbar">+scrollToEnd(): this</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Scrollbar">+scroll(): any</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Scrollbar">+resize(): this</text>
+
+</g>
+</g>
+</g>
+<g data-name="SelectArea">
+<g fill="#eee8d5" stroke="#33322E" data-name="SelectArea">
+<rect x="5139.0" y="364.0" height="275.0" width="182.0" data-name="SelectArea"></rect>
+<path d="M5139.0 396.0 L5321.0 396.0" fill="none" data-name="SelectArea"></path>
+<path d="M5139.0 461.0 L5321.0 461.0" fill="none" data-name="SelectArea"></path>
+</g>
+<g transform="translate(5139, 364)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SelectArea">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="SelectArea">
+<a id="src/selector/index.ts.SelectArea" xlink:href="src/selector/index.ts"><text x="83.0" y="14.1" stroke="none" text-anchor="middle" data-name="SelectArea">SelectArea</text></a>
+
+</g>
+</g>
+<g transform="translate(5139, 396)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SelectArea">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SelectArea">
+<text x="0.0" y="14.1" stroke="none" data-name="SelectArea">+_: HElement</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SelectArea">+_rect: Rect</text>
+<text x="0.0" y="46.5" stroke="none" data-name="SelectArea">+_target: HElement</text>
+
+</g>
+</g>
+<g transform="translate(5139, 461)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SelectArea">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SelectArea">
+<text x="0.0" y="14.1" stroke="none" data-name="SelectArea">+append(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SelectArea">+offset(): { x: number</text>
+<text x="0.0" y="46.5" stroke="none" data-name="SelectArea">y: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="SelectArea">width: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="SelectArea">height: number</text>
+<text x="0.0" y="95.1" stroke="none" data-name="SelectArea">}</text>
+<text x="0.0" y="111.3" stroke="none" data-name="SelectArea">+rect(): this</text>
+<text x="0.0" y="127.5" stroke="none" data-name="SelectArea">+target(): this</text>
+<text x="0.0" y="143.7" stroke="none" data-name="SelectArea">+show(): this</text>
+<text x="0.0" y="159.9" stroke="none" data-name="SelectArea">+clear(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="Selector">
+<g fill="#eee8d5" stroke="#33322E" data-name="Selector">
+<rect x="5361.0" y="210.5" height="582.0" width="292.0" data-name="Selector"></rect>
+<path d="M5361.0 242.5 L5653.0 242.5" fill="none" data-name="Selector"></path>
+<path d="M5361.0 501.5 L5653.0 501.5" fill="none" data-name="Selector"></path>
+</g>
+<g transform="translate(5361, 210.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Selector">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Selector">
+<a id="src/selector/index.ts.Selector" xlink:href="src/selector/index.ts"><text x="138.0" y="14.1" stroke="none" text-anchor="middle" data-name="Selector">Selector</text></a>
+
+</g>
+</g>
+<g transform="translate(5361, 242.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Selector">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Selector">
+<text x="0.0" y="14.1" stroke="none" data-name="Selector">+_placement: Placement</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Selector">+_editable: boolean</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Selector">+_ranges: Range[]</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Selector">+_rowHeaderRanges: Range[]</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Selector">+_colHeaderRanges: Range[]</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Selector">+_areas: SelectArea[]</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Selector">+_focus: [number, number]</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Selector">+_focusRange: Range</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Selector">+_focusArea: SelectArea</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Selector">+_move: [number, number]</text>
+<text x="0.0" y="176.1" stroke="none" data-name="Selector">+_copyRange: Range</text>
+<text x="0.0" y="192.3" stroke="none" data-name="Selector">+_copyAreas: SelectArea[]</text>
+<text x="0.0" y="208.5" stroke="none" data-name="Selector">+_autofillRange: Range</text>
+<text x="0.0" y="224.7" stroke="none" data-name="Selector">+_autofillAreas: SelectArea[]</text>
+<text x="0.0" y="240.9" stroke="none" data-name="Selector">+_autofillTrigger: (evt: any) =&gt; void</text>
+
+</g>
+</g>
+<g transform="translate(5361, 501.5)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Selector">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Selector">
+<text x="0.0" y="14.1" stroke="none" data-name="Selector">+placement(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="Selector">+focus(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="Selector">+move(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="Selector">+autofillRange(): this</text>
+<text x="0.0" y="78.9" stroke="none" data-name="Selector">+autofillTrigger(): this</text>
+<text x="0.0" y="95.1" stroke="none" data-name="Selector">+addRange(): this</text>
+<text x="0.0" y="111.3" stroke="none" data-name="Selector">+updateLastRange(): void</text>
+<text x="0.0" y="127.5" stroke="none" data-name="Selector">+addAreaOutline(): void</text>
+<text x="0.0" y="143.7" stroke="none" data-name="Selector">+addArea(): this</text>
+<text x="0.0" y="159.9" stroke="none" data-name="Selector">+addRowHeaderArea(): this</text>
+<text x="0.0" y="176.1" stroke="none" data-name="Selector">+addColHeaderArea(): this</text>
+<text x="0.0" y="192.3" stroke="none" data-name="Selector">+addCopyArea(): this</text>
+<text x="0.0" y="208.5" stroke="none" data-name="Selector">+addAutofillArea(): this</text>
+<text x="0.0" y="224.7" stroke="none" data-name="Selector">+setFocusArea(): this</text>
+<text x="0.0" y="240.9" stroke="none" data-name="Selector">+showCopy(): void</text>
+<text x="0.0" y="257.1" stroke="none" data-name="Selector">+clearCopy(): void</text>
+<text x="0.0" y="273.3" stroke="none" data-name="Selector">+clear(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="SelectEditor">
+<g fill="#eee8d5" stroke="#33322E" data-name="SelectEditor">
+<rect x="3422.0" y="1043.0" height="242.0" width="216.0" data-name="SelectEditor"></rect>
+<path d="M3422.0 1075.0 L3638.0 1075.0" fill="none" data-name="SelectEditor"></path>
+<path d="M3422.0 1188.0 L3638.0 1188.0" fill="none" data-name="SelectEditor"></path>
+</g>
+<g transform="translate(3422, 1043)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="SelectEditor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="SelectEditor">
+<a id="src/editor/select/index.ts.SelectEditor" xlink:href="src/editor/select/index.ts"><text x="100.0" y="14.1" stroke="none" text-anchor="middle" data-name="SelectEditor">SelectEditor</text></a>
+
+</g>
+</g>
+<g transform="translate(3422, 1075)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SelectEditor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SelectEditor">
+<text x="0.0" y="14.1" stroke="none" data-name="SelectEditor">+_searchInput: HElement</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SelectEditor">+_content: HElement</text>
+<text x="0.0" y="46.5" stroke="none" data-name="SelectEditor">+_width: number</text>
+<text x="0.0" y="62.7" stroke="none" data-name="SelectEditor">+_height: number</text>
+<text x="0.0" y="78.9" stroke="none" data-name="SelectEditor">+_position: Position</text>
+<text x="0.0" y="95.1" stroke="none" data-name="SelectEditor">+_options: OptionsFunc</text>
+
+</g>
+</g>
+<g transform="translate(3422, 1188)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="SelectEditor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="SelectEditor">
+<text x="0.0" y="14.1" stroke="none" data-name="SelectEditor">+query(): Promise&lt;void&gt;</text>
+<text x="0.0" y="30.3" stroke="none" data-name="SelectEditor">+options(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="SelectEditor">+position(): this</text>
+<text x="0.0" y="62.7" stroke="none" data-name="SelectEditor">+rect(): this</text>
+<text x="0.0" y="78.9" stroke="none" data-name="SelectEditor">+show(): this</text>
+
+</g>
+</g>
+</g>
+<g data-name="TextEditor">
+<g fill="#eee8d5" stroke="#33322E" data-name="TextEditor">
+<rect x="3678.0" y="1083.0" height="162.0" width="220.0" data-name="TextEditor"></rect>
+<path d="M3678.0 1115.0 L3898.0 1115.0" fill="none" data-name="TextEditor"></path>
+<path d="M3678.0 1180.0 L3898.0 1180.0" fill="none" data-name="TextEditor"></path>
+</g>
+<g transform="translate(3678, 1083)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="TextEditor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="TextEditor">
+<a id="src/editor/text/index.ts.TextEditor" xlink:href="src/editor/text/index.ts"><text x="102.0" y="14.1" stroke="none" text-anchor="middle" data-name="TextEditor">TextEditor</text></a>
+
+</g>
+</g>
+<g transform="translate(3678, 1115)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TextEditor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TextEditor">
+<text x="0.0" y="14.1" stroke="none" data-name="TextEditor">+_text: HElement</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TextEditor">+_textMeasure: HElement</text>
+<text x="0.0" y="46.5" stroke="none" data-name="TextEditor">+_editing: boolean</text>
+
+</g>
+</g>
+<g transform="translate(3678, 1180)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TextEditor">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TextEditor">
+<text x="0.0" y="14.1" stroke="none" data-name="TextEditor">+value(): this</text>
+<text x="0.0" y="30.3" stroke="none" data-name="TextEditor">+rect(): this</text>
+<text x="0.0" y="46.5" stroke="none" data-name="TextEditor">+hide(): this</text>
+
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

@@ -1,11 +1,11 @@
-import Table from '.';
+import { WolfTable } from '.';
 import { Range } from '@wolf-table/table-renderer';
 import { DataCellValue } from './data';
 import selector from './index.selector';
 import editor from './index.editor';
 import scrollbar from './index.scrollbar';
 
-export function initEvents(t: Table) {
+export function initEvents(t: WolfTable) {
   const { _canvas } = t;
   _canvas
     .on('mousedown', (evt) => mousedownHandler(t, evt))
@@ -18,7 +18,7 @@ export function initEvents(t: Table) {
     });
 }
 
-function mousedownHandler(t: Table, evt: any) {
+function mousedownHandler(t: WolfTable, evt: any) {
   // console.log('evt:', evt);
   const { _selector, _renderer, _editor, _emitter } = t;
   const { viewport } = _renderer;
@@ -57,7 +57,7 @@ function mousedownHandler(t: Table, evt: any) {
   }
 }
 
-function mousemoveHandler(t: Table, evt: any) {
+function mousemoveHandler(t: WolfTable, evt: any) {
   const { _rowResizer, _colResizer, _renderer } = t;
   const { viewport } = _renderer;
   const { buttons, offsetX, offsetY } = evt;
@@ -83,7 +83,7 @@ function mousemoveHandler(t: Table, evt: any) {
   }
 }
 
-function wheelHandler(t: Table, evt: any) {
+function wheelHandler(t: WolfTable, evt: any) {
   const { deltaX, deltaY } = evt;
   const { _hScrollbar, _vScrollbar } = t;
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
@@ -97,7 +97,7 @@ function wheelHandler(t: Table, evt: any) {
   }
 }
 
-function contextmenuHandler(t: Table, evt: any) {
+function contextmenuHandler(t: WolfTable, evt: any) {
   const { _renderer, _editor, _emitter } = t;
   const { viewport } = _renderer;
 
@@ -112,7 +112,7 @@ function contextmenuHandler(t: Table, evt: any) {
   }
 }
 
-function keydownHandler(t: Table, evt: any) {
+function keydownHandler(t: WolfTable, evt: any) {
   const { ctrlKey, shiftKey, metaKey, altKey, code } = evt;
   // console.log('code:', code, evt);
   let direction = null;
@@ -209,7 +209,7 @@ function keydownHandler(t: Table, evt: any) {
   }
 }
 
-function toClipboardTextFrom(t: Table, from: string) {
+function toClipboardTextFrom(t: WolfTable, from: string) {
   const fromRange = Range.with(from);
   let text = '';
   fromRange.eachRow((r) => {
@@ -265,7 +265,7 @@ function toArraysFromClipboardText(text: string) {
 function getClipboardText(
   item: ClipboardItem,
   type: string,
-  cb = (text: string) => {}
+  cb = (text: string) => { }
 ) {
   if (item.types.includes(type)) {
     item.getType(type).then((blob) => {

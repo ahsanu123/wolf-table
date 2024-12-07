@@ -2,7 +2,7 @@ function createFragment(...nodes: (HElement | Node | string)[]) {
   const fragment = document.createDocumentFragment();
   nodes.forEach((node) => {
     let nnode: Node;
-    if (node instanceof HElement) nnode = node._;
+    if (node instanceof HElement) nnode = node._element;
     else if (typeof node === 'string') nnode = document.createTextNode(node);
     else nnode = node;
     fragment.appendChild(nnode);
@@ -20,31 +20,29 @@ export type CSSAttrs = {
 };
 
 export default class HElement {
-  _: HTMLElement;
+  _element: HTMLElement;
   _data = new Map();
 
   constructor(tag: string | Node, className?: string | string[] | Object) {
-    this._ =
+    this._element =
       tag instanceof Node ? <HTMLElement>tag : document.createElement(tag);
     if (className) {
       if (typeof className === 'string') {
-        this._.className = className;
+        this._element.className = className;
       } else if (Array.isArray(className)) {
-        this._.className = className.join(' ');
+        this._element.className = className.join(' ');
       } else {
         for (let [key, value] of Object.entries(className)) {
-          if (value) this._.classList.add(key);
+          if (value) this._element.classList.add(key);
         }
       }
     }
   }
 
-  element(): any {
-    return this._;
+  element(): HTMLElement {
+    return this._element;
   }
 
-  data(key: string): any;
-  data(key: string, value: any): HElement;
   data(key: string, value?: any) {
     if (value) {
       this._data.set(key, value);
@@ -56,7 +54,7 @@ export default class HElement {
 
   on(eventName: string, handler: (evt: any) => void) {
     const [evtName, ...prop] = eventName.split('.');
-    this._.addEventListener(evtName, (evt) => {
+    this._element.addEventListener(evtName, (evt) => {
       handler(evt);
       for (let i = 0; i < prop.length; i += 1) {
         if (prop[i] === 'stop') {
@@ -71,45 +69,40 @@ export default class HElement {
   }
 
   focus() {
-    this._.focus();
+    this._element.focus();
     return this;
   }
 
-  value(): string;
-  value(v: string): HElement;
   value(v?: string): any {
-    if (v !== undefined) {
-      (this._ as any).value = v;
+    if (v) {
+      (this._element as any).value = v;
       return this;
     }
-    return (this._ as any).value;
+    return (this._element as any).value;
   }
 
   textContent(v: string) {
-    this._.textContent = v;
+    this._element.textContent = v;
     return this;
   }
 
   html(v: string) {
-    this._.innerHTML = v;
+    this._element.innerHTML = v;
     return this;
   }
 
   attr(key: string): string;
   attr(key: string, value: string): HElement;
-  attr(key: string, value?: string): any {
+  attr(key: string, value?: string): HElement | string {
     if (value) {
-      this._.setAttribute(key, value);
+      this._element.setAttribute(key, value);
       return this;
     }
-    return this._.getAttribute(key);
+    return this._element.getAttribute(key) ?? '';
   }
 
-  css(key: string): string;
-  css(props: CSSAttrs): HElement;
-  css(key: string, value: string): HElement;
   css(key: any, value?: string): any {
-    const { style } = this._;
+    const { style } = this._element;
     if (value) {
       style.setProperty(key, value);
       return this;
@@ -126,11 +119,11 @@ export default class HElement {
   }
 
   rect() {
-    return this._.getBoundingClientRect();
+    return this._element.getBoundingClientRect();
   }
 
   offset() {
-    const { _ } = this;
+    const { _element: _ } = this;
     return {
       x: _.offsetLeft,
       y: _.offsetTop,
@@ -140,7 +133,7 @@ export default class HElement {
   }
 
   computedStyle() {
-    return window.getComputedStyle(this._);
+    return window.getComputedStyle(this._element);
   }
 
   show(flag: boolean = true) {
@@ -156,7 +149,7 @@ export default class HElement {
   scrollx(): number;
   scrollx(value: number): HElement;
   scrollx(value?: number): any {
-    const { _ } = this;
+    const { _element: _ } = this;
     if (value !== undefined) {
       _.scrollLeft = value;
       return this;
@@ -167,7 +160,7 @@ export default class HElement {
   scrolly(): number;
   scrolly(value: number): HElement;
   scrolly(value?: number): any {
-    const { _ } = this;
+    const { _element: _ } = this;
     if (value !== undefined) {
       _.scrollTop = value;
       return this;
@@ -176,37 +169,37 @@ export default class HElement {
   }
 
   after(...nodes: (HElement | Node | string)[]) {
-    this._.after(createFragment(...nodes));
+    this._element.after(createFragment(...nodes));
     return this;
   }
 
   before(...nodes: (HElement | Node | string)[]) {
-    this._.before(createFragment(...nodes));
+    this._element.before(createFragment(...nodes));
     return this;
   }
 
   append(...nodes: (HElement | Node | string)[]) {
-    this._.append(createFragment(...nodes));
+    this._element.append(createFragment(...nodes));
     return this;
   }
 
   remove(...nodes: (HElement | Node)[]) {
     nodes.forEach((node) => {
-      this._.removeChild(node instanceof HElement ? node._ : node);
+      this._element.removeChild(node instanceof HElement ? node._element : node);
     });
   }
 
   cloneNode() {
-    return this._.cloneNode(true);
+    return this._element.cloneNode(true);
   }
 
   get firstChild(): HElement | null {
-    const first = this._.firstChild;
+    const first = this._element.firstChild;
     return first ? new HElement(first) : null;
   }
 }
 
-export function h(
+export function createHtmlElement(
   tag: string | HTMLElement,
   className?: string | string[] | Object
 ) {

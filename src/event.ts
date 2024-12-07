@@ -1,13 +1,19 @@
-export function bind(target: any, name: string, callback: (evt: any) => void) {
-  target.addEventListener(name, callback);
+export type CallbackFunction =
+  ((evt: any) => void)
+  | ((evt: UIEvent) => void)
+
+type EventNameTypes = keyof CustomEventMap
+
+export function bind(target: HTMLElement, eventName: EventNameTypes, callback: CallbackFunction) {
+  target.addEventListener(eventName, callback);
 }
 
 export function unbind(
-  target: any,
-  name: string,
-  callback: (evt: any) => void
+  target: HTMLElement,
+  eventName: EventNameTypes,
+  callback: CallbackFunction
 ) {
-  target.removeEventListener(name, callback);
+  target.removeEventListener(eventName, callback);
 }
 
 export function bindMousemoveAndMouseup(
@@ -28,38 +34,49 @@ export function bindMousemoveAndMouseup(
 type Handler = (...args: any) => void;
 
 export class EventEmitter {
-  _events = new Map();
+  _events = new Map<EventNameTypes, Array<CallbackFunction>>();
 
-  on(type: string, handler: Handler) {
+  on(type: EventNameTypes, handler: Handler) {
     const { _events } = this;
     if (!_events.has(type)) {
       _events.set(type, []);
     }
-    _events.get(type).push(handler);
+    _events.get(type)?.push(handler);
     return this;
   }
 
-  off(type: string, handler?: Handler) {
+  off(type: EventNameTypes, handler?: Handler) {
     const { _events } = this;
+
     if (_events.has(type)) {
       const handlers = _events.get(type);
-      if (handler) {
-        const findIndex = handlers.findIndex(it, it === handler);
+      if (handler && handlers) {
+
+        const findIndex = handlers.findIndex((it) => it === handler);
         if (findIndex !== -1) {
           handlers.splice(findIndex, 1);
         }
       } else {
-        handlers.length = 0;
+        handlers && (handlers.length = 0);
       }
     }
     return this;
   }
 
-  emit(type: String, ...args: any) {
+  emit(type: EventNameTypes, ...args: any) {
     const { _events } = this;
     if (_events.has(type)) {
-      _events.get(type).forEach((handler: Handler) => handler(...args));
+      _events.get(type)?.forEach((handler: Handler) => handler(...args));
     }
     return this;
+  }
+}
+
+declare global {
+  interface CustomEventMap {
+    'mousemove': CallbackFunction
+    'mouseup': CallbackFunction
+    'click': CallbackFunction
+    'contextmenu': CallbackFunction
   }
 }

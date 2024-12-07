@@ -1,5 +1,5 @@
 import { stylePrefix } from '../config';
-import HElement, { h } from '../element';
+import HElement, { createHtmlElement } from '../element';
 
 export type ScrollbarChanger =
   | ((direction: '+' | '-', value: number, event: Event) => void)
@@ -8,7 +8,7 @@ export type ScrollbarChanger =
 const typeCssKeys = { vertical: 'height', horizontal: 'width' };
 
 export default class Scrollbar {
-  _: HElement;
+  _element: HElement;
   _content: HElement;
 
   _value: number = 0;
@@ -23,8 +23,8 @@ export default class Scrollbar {
 
   constructor(type: 'vertical' | 'horizontal', target: HElement) {
     this._type = type;
-    this._content = h('div', 'content');
-    this._ = h('div', `${stylePrefix}-scrollbar ${type}`)
+    this._content = createHtmlElement('div', 'content');
+    this._element = createHtmlElement('div', `${stylePrefix}-scrollbar ${type}`)
       .append(this._content)
       .on('scroll.stop', (evt) => {
         const { scrollTop, scrollLeft }: any = evt.target;
@@ -36,7 +36,7 @@ export default class Scrollbar {
         }
       });
 
-    target.append(this._);
+    target.append(this._element);
   }
 
   get value() {
@@ -68,7 +68,7 @@ export default class Scrollbar {
   scroll(): any;
   scroll(value: number): Scrollbar;
   scroll(value?: number): any {
-    const { _, _type, _maxValue } = this;
+    const { _element: _, _type, _maxValue } = this;
     if (value !== undefined) {
       if (value < 0) value = 0;
       else if (value > _maxValue) value = _maxValue;
@@ -87,10 +87,10 @@ export default class Scrollbar {
     if (contentValue > value - 1) {
       const cssKey = typeCssKeys[this._type];
       this._content.css(cssKey, `${contentValue}px`);
-      this._.css(cssKey, `${value}px`).show();
+      this._element.css(cssKey, `${value}px`).show();
       this._maxValue = contentValue - value;
     } else {
-      this._.hide();
+      this._element.hide();
     }
     return this;
   }

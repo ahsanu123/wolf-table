@@ -1,12 +1,20 @@
 import { AreaCell } from '@wolf-table/table-renderer';
 import { stylePrefix } from '../config';
-import HElement, { h } from '../element';
+import HElement, { createHtmlElement } from '../element';
 import { bind, unbind } from '../event';
 
 export type ResizerType = 'row' | 'col';
 
+export interface ResizerConstructorTypes {
+  type: ResizerType,
+  targetContainer: HElement,
+  minValue: number,
+  lineLength: () => number,
+  change: (value: number, cell: AreaCell) => void
+}
+
 export default class Resizer {
-  _: HElement;
+  _element: HElement;
   _hover: HElement;
   _line: HElement;
 
@@ -16,26 +24,27 @@ export default class Resizer {
   _cell: AreaCell | null = null;
   _change: (value: number, cell: AreaCell) => void;
 
-  constructor(
-    type: ResizerType,
-    target: HElement,
-    minValue: number,
-    lineLength: () => number,
-    change: (value: number, cell: AreaCell) => void = () => {}
-  ) {
+  constructor({
+    type,
+    targetContainer,
+    minValue,
+    lineLength,
+    change
+  }: ResizerConstructorTypes) {
     this._type = type;
     this._minValue = minValue;
     this._lineLength = lineLength;
     this._change = change;
 
-    this._ = h('div', `${stylePrefix}-resizer ${type}`).append(
-      (this._hover = h('div', 'hover').on('mousedown.stop', (evt) =>
-        mousedownHandler(this, evt)
-      )),
-      (this._line = h('div', 'line'))
-    );
+    this._element = createHtmlElement('div', `${stylePrefix}-resizer ${type}`)
+      .append(
+        this._hover = createHtmlElement('div', 'hover')
+          .on('mousedown.stop', (evt) =>
+            mousedownHandler(this, evt)
+          ))
+      .append((this._line = createHtmlElement('div', 'line')));
 
-    target.append(this._);
+    targetContainer.append(this._element);
   }
 
   show(cell: AreaCell) {
@@ -43,7 +52,7 @@ export default class Resizer {
     const { _type } = this;
     const { x, y, width, height } = cell;
 
-    this._.css('left', `${_type === 'row' ? x : x + width - 5}px`)
+    this._element.css('left', `${_type === 'row' ? x : x + width - 5}px`)
       .css('top', `${_type === 'row' ? y + height - 5 : y}px`)
       .show();
 
@@ -53,13 +62,14 @@ export default class Resizer {
   }
 
   hide() {
-    this._.hide();
+    this._element.hide();
   }
 }
 
 function mousedownHandler(resizer: Resizer, evt: any) {
+  console.log('resizer:', resizer, evt)
   let prevEvent = evt;
-  const { _type, _cell, _minValue, _, _line, _change } = resizer;
+  const { _type, _cell, _minValue, _element: _, _line, _change } = resizer;
   let distance = 0;
 
   _line.show();
@@ -82,8 +92,8 @@ function mousedownHandler(resizer: Resizer, evt: any) {
   };
 
   const upHandler = () => {
-    unbind(window, 'mousemove', moveHandler);
-    unbind(window, 'mouseup', upHandler);
+    unbind(<any>window, 'mousemove', moveHandler);
+    unbind(<any>window, 'mouseup', upHandler);
     prevEvent = null;
     _line.hide();
     _.hide();
@@ -92,6 +102,6 @@ function mousedownHandler(resizer: Resizer, evt: any) {
     }
   };
 
-  bind(window, 'mousemove', moveHandler);
-  bind(window, 'mouseup', upHandler);
+  bind(window as any, 'mousemove', moveHandler);
+  bind(window as any, 'mouseup', upHandler);
 }

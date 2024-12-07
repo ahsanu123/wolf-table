@@ -1,4 +1,4 @@
-import Table, { MoveDirection } from '.';
+import { WolfTable, MoveDirection } from '.';
 import { borderWidth } from './config';
 import { Rect, Range, Area } from '@wolf-table/table-renderer';
 import { DataCell, rangeUnoinMerges, stepColIndex, stepRowIndex } from './data';
@@ -6,12 +6,12 @@ import Selector from './selector';
 import scrollbar from './index.scrollbar';
 import { bindMousemoveAndMouseup } from './event';
 
-function init(t: Table) {
-  t._selector = new Selector(!!t._editable).autofillTrigger((evt) => {
-    const { _selector } = t;
+function init(table: WolfTable) {
+  table._selector = new Selector(!!table._editable).autofillTrigger((evt) => {
+    const { _selector } = table;
     if (_selector) {
       bindMousemove(
-        t,
+        table,
         (row, col) => {
           const { currentRange } = _selector;
           if (currentRange) {
@@ -45,16 +45,16 @@ function init(t: Table) {
         },
         (s) => s._autofillRange,
         (s) => {
-          t.copy(s._autofillRange, true).render();
+          table.copy(s._autofillRange, true).render();
           _selector.autofillRange(null);
-          reset(t);
+          reset(table);
         }
       );
     }
   });
 }
 
-function setCellValue(t: Table, value: DataCell) {
+function setCellValue(t: WolfTable, value: DataCell) {
   const { _selector } = t;
   if (_selector) {
     _selector.clearCopy();
@@ -71,7 +71,7 @@ function setCellValue(t: Table, value: DataCell) {
   }
 }
 
-function addRange(t: Table, r: number, c: number, clear: boolean) {
+function addRange(t: WolfTable, r: number, c: number, clear: boolean) {
   const { _selector, _data } = t;
   const range = Range.create(r, c);
   const mergedRange = rangeUnoinMerges(_data, range);
@@ -82,7 +82,7 @@ function addRange(t: Table, r: number, c: number, clear: boolean) {
   }
 }
 
-function unionRange(t: Table, r: number, c: number) {
+function unionRange(t: WolfTable, r: number, c: number) {
   const { _selector, _data } = t;
   if (_selector) {
     _selector.move(r, c).updateLastRange((focusRange) => {
@@ -91,7 +91,7 @@ function unionRange(t: Table, r: number, c: number) {
   }
 }
 
-function reset(t: Table) {
+function reset(t: WolfTable) {
   const { _selector, _overlayer } = t;
   const { _rowHeader, _colHeader, viewport } = t._renderer;
   if (_selector && viewport) {
@@ -227,7 +227,7 @@ function reset(t: Table) {
   }
 }
 
-function moveAutofill(t: Table, direction: MoveDirection) {
+function moveAutofill(t: WolfTable, direction: MoveDirection) {
   const { _selector, _data } = t;
   if (_selector) {
     const range = _selector._autofillRange;
@@ -250,7 +250,7 @@ function moveAutofill(t: Table, direction: MoveDirection) {
 }
 
 function move(
-  t: Table,
+  t: WolfTable,
   reselect: boolean,
   direction: MoveDirection,
   step?: number
@@ -314,10 +314,10 @@ function move(
 
 // bind mouse select
 function bindMousemove(
-  t: Table,
+  t: WolfTable,
   moveChange: (row: number, col: number) => void,
   changedRange: (s: Selector) => Range | null | undefined,
-  upAfter = (s: Selector) => {}
+  upAfter = (s: Selector) => { }
 ) {
   const { _selector, _renderer } = t;
   if (!_selector) return;
@@ -392,14 +392,14 @@ function bindMousemove(
   }
 }
 
-function showCopy(t: Table) {
+function showCopy(t: WolfTable) {
   if (t._selector) {
     t._selector.showCopy();
     reset(t);
   }
 }
 
-function clearCopy(t: Table) {
+function clearCopy(t: WolfTable) {
   if (t._selector) {
     t._selector.clearCopy();
     reset(t);

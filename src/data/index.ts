@@ -42,35 +42,33 @@ export type TableData = {
 
 export type FormulaParser = (formula: string) => string | number;
 
-export function defaultData(): TableData {
-  return {
-    rows: {
-      len: 100,
-    },
-    cols: {
-      len: 26,
-    },
-    rowHeight: 25,
-    colWidth: 100,
-    scroll: [0, 0, 0, 0],
-    style: {
-      color: '#333',
-      align: 'left',
-      valign: 'middle',
-      textwrap: false,
-      bold: false,
-      italic: false,
-      fontFamily: 'Roboto',
-      fontSize: 10,
-      underline: false,
-      strikethrough: false,
-    },
-    styles: [],
-    borders: [],
-    merges: [],
-    cells: [],
-  };
-}
+export const defaultData: TableData = {
+  rows: {
+    len: 100,
+  },
+  cols: {
+    len: 26,
+  },
+  rowHeight: 25,
+  colWidth: 100,
+  scroll: [0, 0, 0, 0],
+  style: {
+    color: '#333',
+    align: 'left',
+    valign: 'middle',
+    textwrap: false,
+    bold: false,
+    italic: false,
+    fontFamily: 'Roboto',
+    fontSize: 10,
+    underline: false,
+    strikethrough: false,
+  },
+  styles: [],
+  borders: [],
+  merges: [],
+  cells: [],
+};
 
 export {
   isMerged,

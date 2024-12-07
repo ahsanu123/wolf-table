@@ -1,11 +1,11 @@
-import Table, { MoveDirection } from '.';
+import { WolfTable, MoveDirection } from '.';
 import Scrollbar from './scrollbar';
 import { scrollx, scrolly } from './data';
 import selector from './index.selector';
 import editor from './index.editor';
 import { Range } from '@wolf-table/table-renderer';
 
-function init(t: Table) {
+function init(t: WolfTable) {
   // scrollbar
   t._vScrollbar = new Scrollbar('vertical', t._container).change(
     (direction, value) => {
@@ -28,7 +28,7 @@ function init(t: Table) {
   );
 }
 
-function resize(t: Table) {
+function resize(t: WolfTable) {
   const { x, y, height, width } = t._contentRect;
   if (t._vScrollbar) {
     t._vScrollbar.resize(t._height(), height + y);
@@ -46,7 +46,7 @@ function resize(t: Table) {
  * @returns
  */
 function autoMove(
-  t: Table,
+  t: WolfTable,
   range: Range | null | undefined,
   oldRange?: Range | null
 ) {

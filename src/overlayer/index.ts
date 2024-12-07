@@ -1,9 +1,9 @@
 import { Rect } from '@wolf-table/table-renderer';
 import { stylePrefix } from '../config';
-import HElement, { h } from '../element';
+import HElement, { createHtmlElement } from '../element';
 
 function hOverlayer() {
-  return h('div', `${stylePrefix}-overlayer-area`);
+  return createHtmlElement('div', `${stylePrefix}-overlayer-area`);
 }
 
 export default class Overlayer {

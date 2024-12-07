@@ -1,19 +1,19 @@
 import { Range, Rect } from '@wolf-table/table-renderer';
 import { stylePrefix, borderWidth } from '../config';
-import HElement, { h } from '../element';
+import HElement, { createHtmlElement } from '../element';
 
 class SelectArea {
-  _: HElement;
+  _element: HElement;
   _rect: Rect | null = null;
   _target: HElement | null = null;
 
   constructor(classNameSuffix: string, show = false) {
-    this._ = h('div', `${stylePrefix}-${classNameSuffix}`);
+    this._element = createHtmlElement('div', `${stylePrefix}-${classNameSuffix}`);
     if (show) this.show();
   }
 
   append(child: HElement) {
-    this._.append(child);
+    this._element.append(child);
     return this;
   }
 
@@ -28,7 +28,7 @@ class SelectArea {
 
   rect(value: Rect) {
     this._rect = value;
-    this._.css({
+    this._element.css({
       left: value.x,
       top: value.y,
       width: value.width,
@@ -38,18 +38,18 @@ class SelectArea {
   }
 
   target(value: HElement, autoAppend = true) {
-    if (autoAppend) value.append(this._);
+    if (autoAppend) value.append(this._element);
     this._target = value;
     return this;
   }
 
   show() {
-    this._.show();
+    this._element.show();
     return this;
   }
 
   clear() {
-    const { _target, _ } = this;
+    const { _target, _element: _ } = this;
     if (_target) {
       _target.remove(_);
       this._target = null;
@@ -81,7 +81,7 @@ export default class Selector {
 
   _autofillRange: Range | null = null;
   _autofillAreas: SelectArea[] = [];
-  _autofillTrigger = (evt: any) => {};
+  _autofillTrigger = (evt: any) => { };
 
   constructor(editable: boolean) {
     this._editable = editable;
@@ -142,8 +142,8 @@ export default class Selector {
       .target(target);
     if (this._placement === 'body') {
       outline.append(
-        h('div', 'corner')
-          .attr('draggable', 'false')
+        (createHtmlElement('div', 'corner')
+          .attr('draggable', 'false') as HElement)
           .on('mousedown', this._autofillTrigger)
       );
     }

@@ -1,4 +1,4 @@
-import HElement, { h } from '../element';
+import HElement, { createHtmlElement } from '../element';
 import { borderWidth } from '../config';
 import { Rect } from '@wolf-table/table-renderer';
 import { DataCell } from '../data';
@@ -11,17 +11,17 @@ type Changer = (value: DataCell) => void;
  * new -> cellIndex -> rect -> target -> hide
  */
 export default class Editor {
-  _: HElement;
+  _element: HElement;
   _target: HElement | null = null;
   _rect: Rect | null = null;
   _value: DataCell;
   _visible: boolean = false;
 
-  _moveChanger: MoveChanger = () => {};
-  _changer: Changer = () => {};
+  _moveChanger: MoveChanger = () => { };
+  _changer: Changer = () => { };
 
   constructor(cssClass: String) {
-    this._ = h('div', cssClass);
+    this._element = createHtmlElement('div', cssClass);
   }
 
   get visible() {
@@ -29,7 +29,7 @@ export default class Editor {
   }
 
   target(target: HElement) {
-    target.append(this._);
+    target.append(this._element);
     this._target = target;
     return this;
   }
@@ -53,7 +53,7 @@ export default class Editor {
       this._visible = true;
       this._rect = rect;
       const { x, y, width, height } = rect;
-      this._.css({
+      this._element.css({
         left: x - borderWidth / 2,
         top: y - borderWidth / 2,
         width: width - borderWidth,
@@ -64,14 +64,14 @@ export default class Editor {
   }
 
   show() {
-    this._.show();
+    this._element.show();
     return this;
   }
 
   hide() {
     this._visible = false;
     this.value('');
-    this._.hide();
+    this._element.hide();
     return this;
   }
 

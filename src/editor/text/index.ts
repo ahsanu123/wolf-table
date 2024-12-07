@@ -1,19 +1,19 @@
-import HElement, { h } from '../../element';
+import HElement, { createHtmlElement } from '../../element';
 import { borderWidth, stylePrefix } from '../../config';
-import { Rect } from '@wolf-table/table-renderer';
+import { Cell, Rect } from '@wolf-table/table-renderer';
 import Editor from '..';
 import { MoveDirection } from '../..';
 import { cellValueString, DataCell } from '../../data';
 
 export default class TextEditor extends Editor {
-  _text: HElement = h('textarea', '');
-  _textMeasure: HElement = h('div', 'measure');
+  _text: HElement = createHtmlElement('textarea', '');
+  _textMeasure: HElement = createHtmlElement('div', 'measure');
 
   _editing: boolean = false;
 
   constructor() {
     super(`${stylePrefix}-editor`);
-    this._.append(this._text, this._textMeasure);
+    this._element.append(this._text, this._textMeasure);
     this._text
       .on('keydown', (evt) => {
         keydownHandler(this, evt);
@@ -45,7 +45,7 @@ export default class TextEditor extends Editor {
         }
         const el = this._text.element();
         el.focus();
-        el.setSelectionRange(position, position);
+        // el.setSelectionRange(position, position);
       }, 0);
     }
     return this;
@@ -59,7 +59,7 @@ export default class TextEditor extends Editor {
 }
 
 function resizeSize(editor: TextEditor) {
-  const { _, _value, _rect, _textMeasure, _target } = editor;
+  const { _element, _value, _rect, _textMeasure, _target } = editor;
   if (typeof _value !== 'string') return;
   // const txts = _value.split('\n');
   let measureHtml = _value.replace('\n', '<br/>');
@@ -73,22 +73,22 @@ function resizeSize(editor: TextEditor) {
     const toffset = _target.offset();
     const maxWidth = toffset.width - _rect.x - borderWidth;
     const maxHeight = toffset.height - _rect.y - borderWidth;
-    _.css('max-width', `${maxWidth}px`);
+    _element.css('max-width', `${maxWidth}px`);
     _textMeasure.css('max-width', `${maxWidth - padding * 2}px`);
     const { width, height } = _textMeasure.rect();
     const minWidth = _rect.width - borderWidth;
     if (width > minWidth) {
-      _.css({ width: width });
+      _element.css({ width: width });
     }
     if (height > _rect.height && height <= maxHeight) {
-      _.css({ height: height });
+      _element.css({ height: height });
     } else if (height < _rect.height) {
-      _.css({ height: _rect.height - borderWidth });
+      _element.css({ height: _rect.height - borderWidth });
     }
   }
 }
 
-function keydownHandler(editor: TextEditor, evt: any) {
+function keydownHandler(editor: TextEditor, evt: KeyboardEvent) {
   const { code, shiftKey, metaKey, altKey, ctrlKey, target } = evt;
   const moveChanger = (direction: MoveDirection) => {
     editor._moveChanger(direction);
@@ -97,8 +97,8 @@ function keydownHandler(editor: TextEditor, evt: any) {
   // console.log('code:', code, shiftKey, ctrlKey, isComposing);
   if (code === 'Enter') {
     if (ctrlKey || metaKey || altKey) {
-      target.value += '\n';
-      editor.value(target.value);
+      (target as any).value += '\n';
+      editor.value((target as any).value ?? '');
     } else if (shiftKey) {
       // move to up cell
       moveChanger('up');

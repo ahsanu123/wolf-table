@@ -49,6 +49,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@wolf-table/table-renderer": "^0.0.1"
+    "@wolf-table/table-renderer": "^0.0.1",
+    "lit": "^3.2.1"
   }
 }

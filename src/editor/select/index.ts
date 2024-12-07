@@ -1,7 +1,7 @@
 import { Rect } from '@wolf-table/table-renderer';
 import Editor from '..';
 import { stylePrefix } from '../../config';
-import HElement, { h } from '../../element';
+import HElement, { createHtmlElement } from '../../element';
 
 type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 type OptionsFunc = (q: string) => Promise<(string | string[])[]>;
@@ -16,12 +16,12 @@ export default class SelectEditor extends Editor {
 
   constructor() {
     super(`${stylePrefix}-select`);
-    this._searchInput = h('input').on('input', ({ target }) =>
+    this._searchInput = createHtmlElement('input').on('input', ({ target }) =>
       this.query(target.value)
     );
-    this._content = h('ul', `${stylePrefix}-select-content`);
-    this._.append(
-      h('div', `${stylePrefix}-select-input`).append(this._searchInput),
+    this._content = createHtmlElement('ul', `${stylePrefix}-select-content`);
+    this._element.append(
+      createHtmlElement('div', `${stylePrefix}-select-input`).append(this._searchInput),
       this._content
     );
   }
@@ -33,7 +33,7 @@ export default class SelectEditor extends Editor {
       if (data && Array.isArray(data)) {
         this._content.append(
           ...data.map((it) => {
-            let li: HElement = h('li', 'item').on('click', () => {
+            let li: HElement = createHtmlElement('li', 'item').on('click', () => {
               this._changer(
                 Array.isArray(it) ? { key: it[0], value: it[1] } : it
               );
@@ -43,7 +43,7 @@ export default class SelectEditor extends Editor {
               li.append(it);
             } else if (Array.isArray(it)) {
               const [key, text, label] = it;
-              li.append(text, it.length > 2 ? h('label').append(label) : '');
+              li.append(text, it.length > 2 ? createHtmlElement('label').append(label) : '');
             }
             return li;
           })
@@ -76,7 +76,7 @@ export default class SelectEditor extends Editor {
       if (_position === 'top-right' || _position === 'top-left') {
         top -= this._height;
       }
-      this._.css({
+      this._element.css({
         left,
         top,
         width: this._width,

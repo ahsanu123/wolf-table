@@ -1,6 +1,6 @@
 import './style.index.less';
 import { stylePrefix } from './config';
-import HElement, { h } from './element';
+import HElement, { createHtmlElement } from './element';
 import Scrollbar from './scrollbar';
 import Resizer from './resizer';
 import Selector from './selector';
@@ -88,9 +88,9 @@ export type TableOptions = {
 
 export type MoveDirection = 'up' | 'down' | 'left' | 'right';
 
-export { HElement, h };
+export { HElement, createHtmlElement };
 
-export default class Table {
+export class WolfTable {
   // renderer options
   _rendererOptions: TableRendererOptions = {};
 
@@ -145,14 +145,17 @@ export default class Table {
   ) {
     this._width = width;
     this._height = height;
+
     const container: HTMLElement | null =
       typeof element === 'string' ? document.querySelector(element) : element;
     if (container === null) throw new Error('first argument error');
-    this._container = h(container, `${stylePrefix}-container`).css({
+
+    this._container = createHtmlElement(container, `${stylePrefix}-container`).css({
       height: height(),
       width: width(),
     });
-    this._data = defaultData();
+
+    this._data = defaultData;
 
     // update default data
     if (options) {
@@ -176,7 +179,7 @@ export default class Table {
 
     const canvasElement = document.createElement('canvas');
     // tabIndex for trigger keydown event
-    this._canvas = h(canvasElement).attr('tabIndex', '1');
+    this._canvas = createHtmlElement(canvasElement).attr('tabIndex', '1');
     this._container.append(canvasElement);
     this._renderer = new TableRenderer(canvasElement, width(), height());
     this._overlayer = new Overlayer(this._container);
@@ -244,9 +247,9 @@ export default class Table {
     return false;
   }
 
-  merge(): Table;
+  merge(): WolfTable;
   // ref: A1 | A1:B10
-  merge(ref: string): Table;
+  merge(ref: string): WolfTable;
   merge(ref?: string) {
     if (ref) merge(this._data, ref);
     else {
@@ -258,9 +261,9 @@ export default class Table {
     return this;
   }
 
-  unmerge(): Table;
+  unmerge(): WolfTable;
   // ref: A1 | A1:B10
-  unmerge(ref: string): Table;
+  unmerge(ref: string): WolfTable;
   unmerge(ref?: string) {
     if (ref) unmerge(this._data, ref);
     else {
@@ -273,7 +276,7 @@ export default class Table {
   }
 
   row(index: number): DataRow;
-  row(index: number, value: Partial<DataRow>): Table;
+  row(index: number, value: Partial<DataRow>): WolfTable;
   row(index: number, value?: Partial<DataRow>): any {
     if (value) {
       if (value.height) {
@@ -286,7 +289,7 @@ export default class Table {
   }
 
   rowHeight(index: number): number;
-  rowHeight(index: number, value: number): Table;
+  rowHeight(index: number, value: number): WolfTable;
   rowHeight(index: number, value?: number): any {
     const oldValue = rowHeight(this._data, index);
     if (value) {
@@ -308,7 +311,7 @@ export default class Table {
   }
 
   col(index: number): DataCol;
-  col(index: number, value: Partial<DataCol>): Table;
+  col(index: number, value: Partial<DataCol>): WolfTable;
   col(index: number, value?: Partial<DataCol>): any {
     if (value) {
       if (value.width) {
@@ -321,7 +324,7 @@ export default class Table {
   }
 
   colWidth(index: number): number;
-  colWidth(index: number, value: number): Table;
+  colWidth(index: number, value: number): WolfTable;
   colWidth(index: number, value?: number): any {
     const oldValue = colWidth(this._data, index);
     if (value) {
@@ -381,7 +384,7 @@ export default class Table {
   }
 
   cell(row: number, col: number): DataCell;
-  cell(row: number, col: number, value: DataCell): Table;
+  cell(row: number, col: number, value: DataCell): WolfTable;
   cell(row: number, col: number, value?: DataCell): any {
     const { _cells } = this;
     if (value) {
@@ -425,20 +428,23 @@ export default class Table {
 
     // viewport
     const { viewport } = _renderer;
+
     if (viewport) {
       viewport.areas.forEach((rect, index) => {
         _overlayer.area(index, rect);
       });
+
       viewport.headerAreas.forEach((rect, index) => {
         _overlayer.headerArea(index, rect);
       });
+
       scrollbar.resize(this);
     }
     return this;
   }
 
   data(): TableData;
-  data(data: Partial<TableData>): Table;
+  data(data: Partial<TableData>): WolfTable;
   data(data?: any): any {
     if (data) {
       Object.assign(this._data, data);
@@ -455,16 +461,16 @@ export default class Table {
    * @param to
    * @param autofill
    */
-  copy(to: string | Range | Table | null, autofill = false) {
+  copy(to: string | Range | WolfTable | null, autofill = false) {
     if (!to) return this;
-    const toCopyData = (range: string | Range, t: Table) => {
+    const toCopyData = (range: string | Range, t: WolfTable) => {
       return {
         range: typeof range === 'string' ? Range.with(range) : range,
         cells: t._cells,
         data: t._data,
       };
     };
-    const toCopyData1 = (t: Table): CopyData | null => {
+    const toCopyData1 = (t: WolfTable): CopyData | null => {
       const { _selector } = t;
       if (!_selector) return null;
       const range = _selector.currentRange;
@@ -474,7 +480,7 @@ export default class Table {
 
     copy(
       toCopyData1(this),
-      to instanceof Table ? toCopyData1(to) : toCopyData(to, this),
+      to instanceof WolfTable ? toCopyData1(to) : toCopyData(to, this),
       autofill
     );
     return this;
@@ -484,11 +490,11 @@ export default class Table {
    * @param html <table><tr><td style="color: white">test</td></tr></table>
    * @param to A1 or B9
    */
-  fill(html: string): Table;
-  fill(html: string, to: string): Table;
-  fill(arrays: DataCellValue[][]): Table;
-  fill(arrays: DataCellValue[][], to: string): Table;
-  fill(data: any, to?: string): Table {
+  fill(html: string): WolfTable;
+  fill(html: string, to: string): WolfTable;
+  fill(arrays: DataCellValue[][]): WolfTable;
+  fill(arrays: DataCellValue[][], to: string): WolfTable;
+  fill(data: any, to?: string): WolfTable {
     const { _selector } = this;
     let [startRow, startCol] = [0, 0];
     if (to) {
@@ -562,12 +568,12 @@ export default class Table {
     width: () => number,
     height: () => number,
     options?: TableOptions
-  ): Table {
-    return new Table(element, width, height, options);
+  ): WolfTable {
+    return new WolfTable(element, width, height, options);
   }
 }
 
-function resizeContentRect(t: Table) {
+function resizeContentRect(t: WolfTable) {
   t._contentRect = {
     x: t._renderer._rowHeader.width,
     y: t._renderer._colHeader.height,
@@ -584,5 +590,5 @@ declare global {
 
 if (window) {
   window.wolf ||= {};
-  window.wolf.table = Table.create;
+  window.wolf.table = WolfTable.create;
 }
